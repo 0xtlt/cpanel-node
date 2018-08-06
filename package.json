@@ -1,0 +1,25 @@
+{
+  "name": "cpanel-node",
+  "version": "1.0.0",
+  "description": "Node.js library using cpanel api",
+  "main": "cpanel.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomasT404/cpanel-node.git"
+  },
+  "keywords": [
+    "cpanel",
+    "nodejs",
+    "node",
+    "cpanel"
+  ],
+  "author": "Thomas Tastet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ThomasT404/cpanel-node/issues"
+  },
+  "homepage": "https://github.com/ThomasT404/cpanel-node#readme",
+  "dependencies": {
+    "request": "^2.87.0"
+  }
+}
