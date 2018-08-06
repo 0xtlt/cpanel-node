@@ -12,42 +12,58 @@ class CPanel {
         this.options = options;
     }
     //
-    login(module, func, values = [], callback) {
-        let value = '';
-        values.forEach((v) => {
-            value += encodeURI('&'+Object.keys(v))+'='+encodeURI(v[Object.keys(v)])
+    login(module, func, values = []) {
+        const me = this;
+        return new Promise(function(resolve, reject) {
+            let value = '';
+            values.forEach((v) => {
+                value += encodeURI('&'+Object.keys(v))+'='+encodeURI(v[Object.keys(v)])
+            });
+            //
+            let call = '/json-api/cpanel?cpanel_jsonapi_user='+me.options.user;
+                call += '&cpanel_jsonapi_apiversion=2&cpanel_jsonapi_module='+module;
+                call += '&cpanel_jsonapi_func='+func;
+                call += value;
+            //
+            const query = encodeURI((me.options.https ? "https://" : "http://")+me.options.host+':'+me.options.port+call);
+            request({
+                url: query,
+                headers: {
+                    "Authorization": "Basic " + Buffer.from(`${me.options.user}:${me.options.pass}`).toString('base64')
+                }
+            }, function (err, head, body) {
+                if (err) return reject(err);
+                return resolve({ body: body, head: head });
+            })
         });
-
-        let call = '/json-api/cpanel?cpanel_jsonapi_user='+this.options.user;
-            call += '&cpanel_jsonapi_apiversion=2&cpanel_jsonapi_module='+module;
-            call += '&cpanel_jsonapi_func='+func;
-            call += value;
-
-        const query = encodeURI((this.options.https ? "https://" : "http://")+this.options.host+':'+this.options.port+call);
-        request({
-            url: query,
-            headers: {
-                "Authorization": "Basic " + Buffer.from(`${this.options.user}:${this.options.pass}`).toString('base64')
-            }
-        }, function (err, head, body) {
-            if(err)
-                throw err;
-            callback(body, head);
-        })
     };
     //
     emailAddpop(options, callback){
-        if(!tif(options, "object") || !tif(options.host, "string") || !tif(options.email, "string") || !tif(options.password, "string") || !tif(options.quota, "number"))
-            throw new Error("The params options<Object> must be completed with domain<String>, email<String>, password<String>, quota<Number>");
-        //
-        this.login('Email', 'addpop', [{domain: options.host},{email: options.email},{password: options.password}, {quota: options.quota}], callback);
+        const me = this;
+        return new Promise(function(resolve, reject) {
+            if(!tif(options, "object") || !tif(options.host, "string") || !tif(options.email, "string") || !tif(options.password, "string") || !tif(options.quota, "number"))
+                return reject(new Error("The params options<Object> must be completed with domain<String>, email<String>, password<String>, quota<Number>"));
+            //
+            me.login('Email', 'addpop', [{domain: options.host},{email: options.email},{password: options.password}, {quota: options.quota}]).then(function(obj) {
+                return resolve(obj);
+            }, function(err) {
+                return reject(err);
+            });
+        });
     };
     //
     emailDelpop(options, callback){
-        if(!tif(options, "object") || !tif(options.email, "string") || !tif(options.host, "string"))
-            throw new Error("The params options<Object> must be completed with email<String>, domain<String>");
-        //
-        this.login('Email', 'delpop', [{email: options.email}, {domain: options.host}], callback);
+        const me = this;
+        return new Promise(function(resolve, reject) {
+            if(!tif(options, "object") || !tif(options.email, "string") || !tif(options.host, "string"))
+                throw new Error("The params options<Object> must be completed with email<String>, domain<String>");
+            //
+            me.login('Email', 'delpop', [{email: options.email}, {domain: options.host}]).then(function(obj) {
+                return resolve(obj);
+            }, function(err) {
+                return reject(err);
+            });
+        });
     }
 }
 //
