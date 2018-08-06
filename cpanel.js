@@ -33,18 +33,18 @@ class CPanel {
                 }
             }, function (err, head, body) {
                 if (err) return reject(err);
-                return resolve({ body: body, head: head });
+                return resolve({ response: body, header: head });
             })
         });
     };
     //
-    emailAddpop(options, callback){
+    emailAddpop(options){
         const me = this;
         return new Promise(function(resolve, reject) {
             if(!tif(options, "object") || !tif(options.host, "string") || !tif(options.email, "string") || !tif(options.password, "string") || !tif(options.quota, "number"))
                 return reject(new Error("The params options<Object> must be completed with domain<String>, email<String>, password<String>, quota<Number>"));
             //
-            me.login('Email', 'addpop', [{domain: options.host},{email: options.email},{password: options.password}, {quota: options.quota}]).then(function(obj) {
+            me.login('Email', 'addpop', [{ domain: options.host },{ email: options.email },{ password: options.password }, { quota: options.quota }]).then(function(obj) {
                 return resolve(obj);
             }, function(err) {
                 return reject(err);
@@ -52,13 +52,13 @@ class CPanel {
         });
     };
     //
-    emailDelpop(options, callback){
+    emailDelpop(options){
         const me = this;
         return new Promise(function(resolve, reject) {
             if(!tif(options, "object") || !tif(options.email, "string") || !tif(options.host, "string"))
                 throw new Error("The params options<Object> must be completed with email<String>, domain<String>");
             //
-            me.login('Email', 'delpop', [{email: options.email}, {domain: options.host}]).then(function(obj) {
+            me.login('Email', 'delpop', [{ email: options.email }, { domain: options.host }]).then(function(obj) {
                 return resolve(obj);
             }, function(err) {
                 return reject(err);
