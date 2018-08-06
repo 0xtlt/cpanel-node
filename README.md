@@ -1,10 +1,10 @@
-# Cpanel-node
+# Cpanel-node 🌌
 Cpanel-node is designed to be simplest way possible to make api request to Cpanel.
 
-## Installation
+## Installation 🚀
 	$ npm install cpanel-node
 	
-## Usage
+## Usage 💬
 ```javascript
 const cpanelAPI = require('cpanel-node');
 const options = {
@@ -18,7 +18,7 @@ const options = {
 let myCpanel = new cpanelAPI(options);
 ```
 
-## API
+## API 🔨
 Create email address
 ```javascript
 myCpanel.emailAddpop({
