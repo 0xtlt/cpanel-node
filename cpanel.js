@@ -1,18 +1,17 @@
 const request = require("request");
-
+//
 const tif = function(a, b){
     return (typeof a === b);
 };
-
+//
 class CPanel {
     constructor(options){
-        if(options === undefined || !tif(options, "object") || !tif(options.host, "string") || !tif(options.user, "string") || !tif(options.pass, "string") || !tif(options.https, "boolean") || !tif(options.port, "string")){
-            throw "The params option<Object> must be completed with domain<String>, user<String>, pass<String>, https<Boolean>, port<String>";
-        }
+        if(options === undefined || !tif(options, "object") || !tif(options.host, "string") || !tif(options.user, "string") || !tif(options.pass, "string") || !tif(options.https, "boolean") || !tif(options.port, "string"))
+            throw new Error("The params option<Object> must be completed with domain<String>, user<String>, pass<String>, https<Boolean>, port<String>");
         //
         this.options = options;
     }
-
+    //
     login(module, func, values = [], callback) {
         let value = '';
         values.forEach((v) => {
@@ -36,21 +35,20 @@ class CPanel {
             callback(body, head);
         })
     };
-
+    //
     emailAddpop(options, callback){
-        if(!tif(options, "object") || !tif(options.host, "string") || !tif(options.email, "string") || !tif(options.password, "string") || !tif(options.quota, "number")){
-            throw "The params options<Object> must be completed with domain<String>, email<String>, password<String>, quota<Number>"
-        }
-
+        if(!tif(options, "object") || !tif(options.host, "string") || !tif(options.email, "string") || !tif(options.password, "string") || !tif(options.quota, "number"))
+            throw new Error("The params options<Object> must be completed with domain<String>, email<String>, password<String>, quota<Number>");
+        //
         this.login('Email', 'addpop', [{domain: options.host},{email: options.email},{password: options.password}, {quota: options.quota}], callback);
     };
-
+    //
     emailDelpop(options, callback){
-        if(!tif(options, "object") || !tif(options.email, "string") || !tif(options.host, "string")){
-            throw "The params options<Object> must be completed with email<String>, domain<String>"
-        }
+        if(!tif(options, "object") || !tif(options.email, "string") || !tif(options.host, "string"))
+            throw new Error("The params options<Object> must be completed with email<String>, domain<String>");
+        //
         this.login('Email', 'delpop', [{email: options.email}, {domain: options.host}], callback);
     }
 }
-
+//
 module.exports = CPanel;
