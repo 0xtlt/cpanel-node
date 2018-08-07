@@ -3,12 +3,12 @@ Cpanel-node is designed to be simplest way possible to make api request to Cpane
 
 ## Installation 🚀
 	$ npm install cpanel-node
-	
+
 ## Usage 💬
 ```javascript
 const cpanelAPI = require('cpanel-node');
 const options = {
-    url: 'whm.example.com',
+    host: 'whm.example.com',
     user: 'CPANEL_USERNAME',
     pass: 'CPANEL_PASSWORD',
     https: true, //https is advisable
@@ -26,8 +26,9 @@ myCpanel.emailAddpop({
     email: "thebest",
     password: "*******",
     quota: 150 //Mo
-}, function (response, header) {
-    console.log(response);
+}).then(obj) {
+    console.log(obj.response);
+    console.log(obj.header);
 });
 ```
 
@@ -36,7 +37,8 @@ Remove email address
 myCpanel.emailDelpop({
     domain: 'example.com',
     email: 'thebest'
-}, function (response, header) {
-    console.log(response);
+}).then(obj) {
+    console.log(obj.response);
+    console.log(obj).header);
 });
 ```
