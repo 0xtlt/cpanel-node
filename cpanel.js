@@ -7,7 +7,7 @@ const tif = function(a, b){
 class CPanel {
     constructor(options){
         if(options === undefined || !tif(options, "object") || !tif(options.host, "string") || !tif(options.user, "string") || !tif(options.pass, "string") || !tif(options.https, "boolean") || !tif(options.port, "string"))
-            throw new Error("The params option<Object> must be completed with domain<String>, user<String>, pass<String>, https<Boolean>, port<String>");
+            throw new Error("The params option<Object> must be completed with host<String>, user<String>, pass<String>, https<Boolean>, port<String>");
 
         this.options = options;
     }
@@ -41,10 +41,10 @@ class CPanel {
     emailAddpop(options){
         const me = this;
         return new Promise(function(resolve, reject) {
-            if(!tif(options, "object") || !tif(options.host, "string") || !tif(options.email, "string") || !tif(options.password, "string") || !tif(options.quota, "number"))
+            if(!tif(options, "object") || !tif(options.domain, "string") || !tif(options.email, "string") || !tif(options.password, "string") || !tif(options.quota, "number"))
                 return reject(new Error("The params options<Object> must be completed with domain<String>, email<String>, password<String>, quota<Number>"));
 
-            me.login('Email', 'addpop', [{ domain: options.host },{ email: options.email },{ password: options.password }, { quota: options.quota }]).then(function(obj) {
+            me.login('Email', 'addpop', [{ domain: options.domain },{ email: options.email },{ password: options.password }, { quota: options.quota }]).then(function(obj) {
                 return resolve(obj);
             }, function(err) {
                 return reject(err);
@@ -55,10 +55,10 @@ class CPanel {
     emailDelpop(options){
         const me = this;
         return new Promise(function(resolve, reject) {
-            if(!tif(options, "object") || !tif(options.email, "string") || !tif(options.host, "string"))
+            if(!tif(options, "object") || !tif(options.email, "string") || !tif(options.domain, "string"))
                 throw new Error("The params options<Object> must be completed with email<String>, domain<String>");
 
-            me.login('Email', 'delpop', [{ email: options.email }, { domain: options.host }]).then(function(obj) {
+            me.login('Email', 'delpop', [{ email: options.email }, { domain: options.domain }]).then(function(obj) {
                 return resolve(obj);
             }, function(err) {
                 return reject(err);
