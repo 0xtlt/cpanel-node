@@ -26,7 +26,7 @@ myCpanel.emailAddpop({
     email: "thebest",
     password: "*******",
     quota: 150 //Mo
-}).then(obj) {
+}).then(obj => {
     console.log(obj.response);
     console.log(obj.header);
 });
@@ -37,8 +37,32 @@ Remove email address
 myCpanel.emailDelpop({
     domain: 'example.com',
     email: 'thebest'
-}).then(obj) {
+}).then(obj => {
     console.log(obj.response);
     console.log(obj).header);
+});
+```
+
+Change email password
+```javascript
+myCpanel.emailPasswdpop({
+    domain: 'example.com',
+    email: "thebest",
+    password: "*******"
+}).then(obj => {
+    console.log(obj.response);
+    console.log(obj.header);
+});
+```
+
+Change email quota
+```javascript
+myCpanel.emailEditpopQuota({
+    domain: 'example.com',
+    email: "thebest",
+    quota: 50//Mo
+}).then(obj => {
+    console.log(obj.response);
+    console.log(obj.header);
 });
 ```
