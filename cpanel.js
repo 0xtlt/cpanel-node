@@ -72,7 +72,7 @@ class CPanel {
             if(!tif(options, "object") || !tif(options.email, "string") || !tif(options.domain, "string") || !tif(options.password, "string"))
                 throw new Error("The params options<Object> must be completed with email<String>, domain<String>, password<String>");
 
-            me.login('Email', 'passwd_pop', [{email: options.email},{password: options.password}, {domain: options.domain}]).then(function (obj) {
+            me.login('Email', 'passwdpop', [{email: options.email},{password: options.password}, {domain: options.domain}]).then(function (obj) {
                return resolve(obj);
             }, function (err) {
                 return reject(err);
@@ -86,7 +86,7 @@ class CPanel {
             if(!tif(options, "object") || !tif(options.email, "string") || !tif(options.domain, "string") || !tif(options.quota, "number"))
                 throw new Error("The params options<Object> must be completed with email<String>, domain<String>, quota<Number>");
 
-            me.login('Email', 'edit_pop_quota', [{email: options.email},{quota: options.quota}, {domain: options.domain}]).then(function (obj) {
+            me.login('Email', 'editquota', [{email: options.email},{quota: options.quota}, {domain: options.domain}]).then(function (obj) {
                return resolve(obj);
             }, function (err) {
                 return reject(err);
