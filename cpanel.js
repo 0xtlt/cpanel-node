@@ -94,12 +94,9 @@ class CPanel {
         });
     }
     
-    zoneFetchZones(options){
+    zoneFetchZones(){
         const me = this;
         return new Promise(function(resolve, reject){
-            if(!tif(options, "object") )
-                throw new Error("The params options<Object> must be completed with email<String>, domain<String>, quota<Number>");
-
             me.login('ZoneEdit', 'fetchzones').then(function (obj) {
                return resolve(obj);
             }, function (err) {
@@ -110,7 +107,7 @@ class CPanel {
     zoneFetchZone(options){
         const me = this;
         return new Promise(function(resolve, reject){
-            if(!tif(options, "object") || !tif(options.domain, "string") || !tif(options.name, "string") || !tif(options.type, "string") )
+            if(!tif(options, "object") || !tif(options.domain, "string") || !tif(options.name, "string") || !tif(options.type, "string"))
                 throw new Error("The params options<Object> must be completed with domain<String>, name<String>, type<String>");
 
             me.login('ZoneEdit', 'fetchzone',[{domain: options.domain},{name: options.name},{type: options.type}]).then(function (obj) {

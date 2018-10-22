@@ -66,3 +66,23 @@ myCpanel.emailEditpopQuota({
     console.log(obj.header);
 });
 ```
+
+Retrieve a zone file
+```javascript
+myCpanel.zoneFetchZone({
+    domain: 'example.com',
+    name: "world",
+    type: "type"
+}).then(obj => {
+    console.log(obj.response);
+    console.log(obj.header);
+});
+```
+
+Get all of the account's zone files
+```javascript
+myCpanel.zoneFetchZones().then(obj => {
+    console.log(obj.response);
+    console.log(obj.header);
+});
+```
