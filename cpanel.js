@@ -104,6 +104,7 @@ class CPanel {
             });
         });
     }
+    
     zoneFetchZone(options){
         const me = this;
         return new Promise(function(resolve, reject){
