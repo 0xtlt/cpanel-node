@@ -118,6 +118,27 @@ class CPanel {
             });
         });
     }
+
+    /**
+     * Addons domains
+     */
+    listAddonDomains(options){
+        const me = this;
+        return new Promise(function(resolve, reject){
+            if(!tif(options, "object") || !tif(options.regex, "string")){
+                options = {
+                    regex: ''
+                };
+            }
+
+            // List the account's addon domains.
+            me.login('AddonDomain', 'listaddondomains',[{regex: options.regex}]).then(function (obj) {
+                return resolve(obj);
+            }, function (err) {
+                return reject(err);
+            });
+        });
+    }
 }
 
 module.exports = CPanel;
