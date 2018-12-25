@@ -104,6 +104,7 @@ class CPanel {
             });
         });
     }
+
     zoneFetchZone(options){
         const me = this;
         return new Promise(function(resolve, reject){
@@ -112,6 +113,27 @@ class CPanel {
 
             me.login('ZoneEdit', 'fetchzone',[{domain: options.domain},{name: options.name},{type: options.type}]).then(function (obj) {
                return resolve(obj);
+            }, function (err) {
+                return reject(err);
+            });
+        });
+    }
+
+    /**
+     * Addons domains
+     */
+    listAddonDomains(options){
+        const me = this;
+        return new Promise(function(resolve, reject){
+            if(!tif(options, "object") || !tif(options.regex, "string")){
+                options = {
+                    regex: ''
+                };
+            }
+
+            // List the account's addon domains.
+            me.login('AddonDomain', 'listaddondomains',[{regex: options.regex}]).then(function (obj) {
+                return resolve(obj);
             }, function (err) {
                 return reject(err);
             });
