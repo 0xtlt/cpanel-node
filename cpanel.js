@@ -139,6 +139,38 @@ class CPanel {
             });
         });
     }
+    
+    /** 
+     * Edit domain
+    */
+    zoneEditZone(options) {
+    const me = this;
+    return new Promise(function (resolve, reject) {
+        if (!tif(options, "object") || !tif(options.domain, "string") || !tif(options.line, "number"))
+            throw new Error("The params options<Object> must be completed with domain<String> and Line<number>");
+
+        let values = [{ domain: options.domain }, { line: options.line }];
+
+        if (tif(options.address, "string"))
+            values.push({ address: options.address });
+
+        if (tif(options.type, "string"))
+            values.push({ type: options.type });
+
+        if (tif(options.name, "string"))
+            values.push({ name: options.name });
+
+        if (tif(options.ttl, "number"))
+            values.push({ ttl: options.ttl });
+
+        me.login('ZoneEdit', 'edit_zone_record', values).then(function (obj) {
+            return resolve(obj);
+        }, function (err) {
+            return reject(err);
+        });
+
+    });
+}
 }
 
 module.exports = CPanel;

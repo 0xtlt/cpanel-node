@@ -86,3 +86,18 @@ myCpanel.zoneFetchZones().then(obj => {
     console.log(obj.header);
 });
 ```
+
+Change _name_, _address_, _type_ and/or _ttl_ for a specific line in a zone file
+```javascript
+myCpanel.zoneEditZone({
+    domain: 'example.com', // The zone file to work with
+    line: 42, // The line (in the zone) to change
+    name: "world", // optional
+    address: "127.0.0.1", // optional
+    type: "type", // optional
+    ttl: 7200 // optional
+}).then(obj => {
+    console.log(obj.response);
+    console.log(obj.header);
+});
+```
