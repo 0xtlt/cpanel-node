@@ -132,7 +132,29 @@ class CPanel {
             }
 
             // List the account's addon domains.
-            me.login('AddonDomain', 'listaddondomains',[{regex: options.regex}]).then(function (obj) {
+            me.login('AddonDomain', 'listaddondomains', [{ regex: options.regex }]).then(function (obj) {
+                return resolve(obj);
+            }, function (err) {
+                return reject(err);
+            });
+        });
+    }
+
+    /**
+     * Add domain
+     */
+    zoneAddDomain(options) {
+        const me = this;
+        return new Promise(function (resolve, reject) {
+            if (!tif(options, "object") || !tif(options.domain, "string") || !tif(options.name, "string") || !tif(options.type, "string") || !tif(options.address, "string"))
+                throw new Error("The params options<Object> must be completed with domain<String>, name<string>, type<string> and address<string>");
+
+            let values = [{ domain: options.domain }, { name: options.name }, { type: options.type }, { address: options.address }];
+
+            if (tif(options.ttl, "number"))
+                values.push({ ttl: options.ttl });
+
+            me.login('ZoneEdit', 'add_zone_record', values).then(function (obj) {
                 return resolve(obj);
             }, function (err) {
                 return reject(err);
@@ -143,7 +165,7 @@ class CPanel {
     /** 
      * Edit domain
     */
-    zoneEditZone(options) {
+    zoneEditDomain(options) {
     const me = this;
     return new Promise(function (resolve, reject) {
         if (!tif(options, "object") || !tif(options.domain, "string") || !tif(options.line, "number"))
