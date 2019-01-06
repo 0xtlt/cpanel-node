@@ -171,6 +171,26 @@ class CPanel {
 
     });
 }
+
+    /** 
+     * Remove domain
+    */
+    zoneRemoveDomain(options) {
+        const me = this;
+        return new Promise(function (resolve, reject) {
+            if (!tif(options, "object") || !tif(options.domain, "string") || !tif(options.line, "number"))
+                throw new Error("The params options<Object> must be completed with domain<String> and Line<number>");
+
+            let values = [{ domain: options.domain }, { line: options.line }];
+
+            me.login('ZoneEdit', 'remove_zone_record', values).then(function (obj) {
+                return resolve(obj);
+            }, function (err) {
+                return reject(err);
+            });
+
+        });
+    }
 }
 
 module.exports = CPanel;

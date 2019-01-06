@@ -100,4 +100,15 @@ myCpanel.zoneEditZone({
     console.log(obj.response);
     console.log(obj.header);
 });
+
+```
+Remove a specific line in a zone file (that is, a domain record)
+```javascript
+myCpanel.zoneRemoveDomain({
+    domain: 'example.com', // The zone file to work with
+    line: 42, // The line (in the zone) to remove
+}).then(obj => {
+    console.log(obj.response);
+    console.log(obj.header);
+});
 ```
